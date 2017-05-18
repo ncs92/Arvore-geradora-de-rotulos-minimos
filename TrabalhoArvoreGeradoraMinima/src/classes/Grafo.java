@@ -30,10 +30,10 @@ public class Grafo {
         if (this.grafo != null) {
             if(this.grafo.containsKey(v)){
                 System.out.println("\n O grafo já contem este valor como key.");
+            }else{
+                this.grafo.put(v, null);
             }           
-        } else {         
-            this.grafo.put(v, null);
-        }
+        } 
     }
 
     public  void inserirArestaGrafo(Object v, Object a) {

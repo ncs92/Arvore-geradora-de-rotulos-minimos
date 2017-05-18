@@ -25,31 +25,38 @@ public class LeituraArquivo {
         int linhaAtual = 0;
         int quantidadeLinha = 0;
         int quantidadeColuna = 0;
+        String rotulo = "";
         ArrayList<Grafo> todosGrafos = new ArrayList();
-
+        int cont = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             while ((texto = br.readLine()) != null) {
-                if (linhaAtual == 0) {
-                    quantidadeLinha = Integer.parseInt(texto.split(" ")[0]);
-                    quantidadeColuna = Integer.parseInt(texto.split(" ")[1]);                    
-                } else if (texto.trim().equals("")) {
+                if (cont == 0) {
+                    quantidadeLinha = Integer.parseInt(texto.split(" ")[0]) - 2;
+                    quantidadeColuna = Integer.parseInt(texto.split(" ")[1]) - 2; 
+                    rotulo = texto.split(" ")[0];
+                    linhaAtual = quantidadeLinha+1;
+                } else if (linhaAtual < 0) {
                     todosGrafos.add(grafo);
-                    grafo.removerTodasKeyGrafo();
-                } else {
-                    int totalPesos = texto.split(" ").length;
+                    grafo.removerTodasKeyGrafo(); // remove o anterior por causa de referencia arrumar
+                    linhaAtual = quantidadeLinha+1;
+                } else {                    
                     grafo.inserirVerticeGrafo(linhaAtual);
+                    int totalPesos = texto.split(" ").length;
                     for (int j = 0; j < totalPesos; j++) {
-                        Vertice adjacente = new Vertice();
-                        adjacente.setNome(String.valueOf(j));
-                        Aresta a = new Aresta();
-                        a.setV1(adjacente);
-                        a.setPeso(texto.split(" ")[j]);
-                        grafo.inserirArestaGrafo(linhaAtual, j);
+                        String peso = texto.split(" ")[j];
+                        if(!peso.equals(rotulo)){
+                            Vertice adjacente = new Vertice();
+                            adjacente.setNome(String.valueOf(j));                        
+                            Aresta a = new Aresta();
+                            a.setV1(adjacente);
+                            a.setPeso(peso);
+                            grafo.inserirArestaGrafo(linhaAtual, a);
+                        }                        
                     }
-
                 }
-                linhaAtual++;
+                linhaAtual--;
+                cont++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
