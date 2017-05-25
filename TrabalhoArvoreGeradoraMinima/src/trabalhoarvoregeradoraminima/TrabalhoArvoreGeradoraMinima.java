@@ -20,7 +20,7 @@ public class TrabalhoArvoreGeradoraMinima {
      */
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         ArrayList<Grafo> todosGrafos = new ArrayList();
         LeituraArquivo leitura = new LeituraArquivo();
         todosGrafos = leitura.lerArquivo("/home/todos/alunos/cm/a899607/Documentos/Arvore-geradora-de-rotulos-minimos/TrabalhoArvoreGeradoraMinima/src/instancias/GROUP1/HDGraph20_20.txt");

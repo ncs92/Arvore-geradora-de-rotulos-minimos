@@ -16,10 +16,21 @@ import java.util.Set;
  *
  * @author nani
  */
-public class Grafo {
+public class Grafo implements Cloneable {
     private  Map<Object, ArrayList<Object>> grafo = new HashMap<>();
 
     public Grafo() {
+    }
+    
+    @Override
+    public Grafo clone() throws CloneNotSupportedException {
+        try {
+        return (Grafo)super.clone();
+      }
+      catch (CloneNotSupportedException ex) {
+        ex.printStackTrace();
+        return null;
+      }
     }
     
     public  Map<Object, List<Object>> getGrafo(){

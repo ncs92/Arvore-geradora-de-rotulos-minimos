@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class LeituraArquivo {
 
-    public ArrayList<Grafo> lerArquivo(String caminho) {
+    public ArrayList<Grafo> lerArquivo(String caminho) throws CloneNotSupportedException {
         String texto;
         Grafo grafo = new Grafo();
         File file = new File(caminho);
@@ -36,9 +36,9 @@ public class LeituraArquivo {
                     quantidadeColuna = Integer.parseInt(texto.split(" ")[1]) - 2; 
                     rotulo = texto.split(" ")[0];
                     linhaAtual = quantidadeLinha+1;
-                } else if (linhaAtual < 0) {
-                    todosGrafos.add(grafo);
-                    grafo.removerTodasKeyGrafo(); // remove o anterior por causa de referencia arrumar
+                } else if (linhaAtual < 0) {                    
+                    todosGrafos.add((Grafo) grafo.clone());
+                    grafo = new Grafo();
                     linhaAtual = quantidadeLinha+1;
                 } else {                    
                     grafo.inserirVerticeGrafo(linhaAtual);
